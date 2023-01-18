@@ -10,21 +10,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class SweetItem {
 	
-	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	
+//	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Integer orderItemId;
 	
 	private Product product;
 	
-	private SweetOrder sweetOrder;
-
+	private Integer quat;
+	
 	@Override
 	public String toString() {
 		return "SweetItem [orderItemId=" + orderItemId + ", product=" + product + "]";
