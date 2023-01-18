@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,12 +34,10 @@ public class Customer {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Cart cart;
+	
+	
 
-	@Override
-	public String toString() {
-		return "Customer [userId=" + userId + ", username=" + username + "]";
-	}
-
+	
 	
 	
 	

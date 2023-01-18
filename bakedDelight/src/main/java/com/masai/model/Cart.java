@@ -13,7 +13,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
 	
 	@Id
@@ -31,15 +40,13 @@ public class Cart {
 	@JoinColumn(name = "CustomerID")
 	private Customer customer;
 
-	@OneToOne(mappedBy = "cart")
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "cart")    // shohaib
 	private SweetOrder sweetOrder;
 	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
+	private List<SweetItem> products=new ArrayList<>();
 	
-	@Override
-	public String toString() {
-		return "Cart [cartId=" + cartId
-				+ ", productCount=" + productCount + ", total=" + cartTotal + "]";
-	}
+	
 	
 	
 	

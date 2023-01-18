@@ -13,7 +13,18 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SweetOrder {
 	
 	@Id
@@ -24,15 +35,13 @@ public class SweetOrder {
 
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "order")
 	private OrderBill orderBill;
+	
+	
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Cart cart;
 
-	@Override
-	public String toString() {
-		return "SweetOrder [sweetOrderId=" + sweetOrderId + ", date=" + date + ", orderBill=" + orderBill + ", cart="
-				+ cart + "]";
-	}
+	
 
 
 	

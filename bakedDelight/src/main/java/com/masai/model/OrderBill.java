@@ -34,17 +34,13 @@ public class OrderBill {
 	
 	private Double totalCost;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private SweetOrder order;
 	
 //	@ElementCollection
 //	private List<Product> listSweetOrder = new ArrayList<>();
 
-	@Override
-	public String toString() {
-		return "OrderBill [orderBillId=" + orderBillId + ", createdDate=" + createdDate + ", totalCost=" + totalCost
-				+ "]";
-	}
+	
 	
 	
 }
