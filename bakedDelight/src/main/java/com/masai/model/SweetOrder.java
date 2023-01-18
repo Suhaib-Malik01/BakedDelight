@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class SweetOrder {
@@ -17,20 +20,22 @@ public class SweetOrder {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Integer sweetOrderId;
 	
-	private User user;
-	
-	private List<SweetItem> listItems;
-	
 	private LocalDate date;
-	
-	private Map<Product,Integer> groupedProduct = new HashMap<>();
+
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "order")
+	private OrderBill orderBill;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Cart cart;
 
 	@Override
 	public String toString() {
-		return "SweetOrder [sweetOrderId=" + sweetOrderId + ", user=" + user + ", listItems=" + listItems + ", date="
-				+ date + ", groupedProduct=" + groupedProduct + "]";
+		return "SweetOrder [sweetOrderId=" + sweetOrderId + ", date=" + date + ", orderBill=" + orderBill + ", cart="
+				+ cart + "]";
 	}
-	
-	
 
+
+	
+	
+	
 }
