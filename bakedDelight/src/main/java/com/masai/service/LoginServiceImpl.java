@@ -2,6 +2,8 @@ package com.masai.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,73 +12,77 @@ import org.springframework.stereotype.Service;
 import com.masai.exception.LoginException;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Customer;
-import com.masai.model.LoginDTO;
+
+import com.masai.model.User;
 import com.masai.repository.CustomerRepository;
 import com.masai.repository.SessionRepository;
+
 @Service
 public class LoginServiceImpl implements LoginService {
-	
+
 	@Autowired
 	private CustomerRepository cdao;
-	
+
 	@Autowired
 	private SessionRepository sdao;
 
 	@Override
-	public CurrentUserSession LoginIntoAccount(LoginDTO dto) throws LoginException {
-		// Check if the user exists or not 
-		Customer exist = cdao.findByUserName(dto.getUsername());
-		if(exist == null) {
-			throw new LoginException("Please Enter a valid Username");
-		}
-		
-		// Validate Password
-		if(exist.getPassword().equals(dto.getPassword())) {
+	public String LoginYourAccount(User user) throws LoginException {
+
+		if (user.getRole().equals("admin")) {
 			String uuid = UUID.randomUUID().toString();
-		CurrentUserSession cus = new CurrentUserSession(uuid, exist.getUserId(), LocalDateTime.now());
-		sdao.save(cus);
-		return cus;
+
+			Random rand = new Random();
+
+			int rand_int1 = rand.nextInt(100);
+
+			CurrentUserSession userSession = new CurrentUserSession(rand_int1, uuid, LocalDateTime.now(),
+					user.getUsername(), user.getPassword(), user.getRole());
+
+			sdao.save(userSession);
 		}
-		
-		else {
-			// Throw exception on invalid password
-			throw new LoginException("Please enter a valid password!");
+
+		// Check if the user exists or not
+		Customer exist = cdao.findByusername(user.getUsername());
+		if (exist == null) {
+			throw new LoginException("Please Enter a valid username");
 		}
-		
+
+		Optional<CurrentUserSession> checkLogin = sdao.findById(exist.getUserId());
+
+		if (checkLogin.isPresent()) {
+			throw new LoginException(" You already Login SS");
+		}
+
+		if (exist.getPassword().equals(user.getPassword())) {
+
+			String key = UUID.randomUUID().toString();
+
+//					CurrentUserSession userSession = new CurrentUserSession(exist.getCustomerId(),key,LocalDateTime.now(),user.getEmail(),user.getPassword(),user.getRole());
+//					sessionD.save(userSession);
+
+			CurrentUserSession userSession = new CurrentUserSession(exist.getUserId(), key, LocalDateTime.now(),
+					user.getUsername(), user.getPassword(), user.getRole());
+			sdao.save(userSession);
+			return userSession.toString();
+		} else {
+			throw new LoginException("Password doesn't match");
+		}
+
 	}
 
 	@Override
-	public String LogoutFromAccount(String key) throws LoginException {
-		// Validate token 
-		CurrentUserSession cus = sdao.findByUuid(key);
-		if(cus == null) {
-			throw new LoginException("Invalid operation!");
+	public String LogOutYourAccount(String key) throws LoginException {
+		CurrentUserSession validUserSession = sdao.findByUuid(key);
+
+		if (validUserSession == null) {
+
+			throw new LoginException("User Not Logged in with this Email Id");
 		}
-		//Log out
-		sdao.delete(cus);
+
+		sdao.delete(validUserSession);
+
 		return "Logged Out!";
-	}
-
-	@Override
-	public String LogoutFromAllAccounts(String key) throws LoginException {
-		// Validate current user token
-		CurrentUserSession cus = sdao.findByUuid(key);
-		if(cus == null) {
-			throw new LoginException("Access denied!");
-		}
-		
-		// Get list of current sessions running 
-		List<CurrentUserSession> sessions = sdao.findByUserId(cus.getUserId());
-		
-		
-		// Remove all except the current user
-		for(CurrentUserSession session : sessions) {
-			if(session.getUuid()!= cus.getUuid())
-				sdao.delete(session);
-		}
-		 
-		// Return success message
-		return "Logged out from all devices!";
 	}
 
 }
