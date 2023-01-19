@@ -25,7 +25,7 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public CurrentUserSession LoginIntoAccount(LoginDTO dto) throws LoginException {
 		// Check if the user exists or not 
-		Customer exist = cdao.findByUserName(dto.getUsername());
+		Customer exist = cdao.findByUsername(dto.getUsername());
 		if(exist == null) {
 			throw new LoginException("Please Enter a valid Username");
 		}
