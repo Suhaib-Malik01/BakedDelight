@@ -1,7 +1,7 @@
 package com.masai.service;
 
+
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -12,23 +12,22 @@ import org.springframework.stereotype.Service;
 import com.masai.exception.LoginException;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Customer;
-
 import com.masai.model.User;
 import com.masai.repository.CustomerRepository;
 import com.masai.repository.SessionRepository;
 
 @Service
 public class LoginServiceImpl implements LoginService {
-
+	
 	@Autowired
 	private CustomerRepository cdao;
-
+	
 	@Autowired
 	private SessionRepository sdao;
 
 	@Override
-	public String LoginYourAccount(User user) throws LoginException {
-
+	public CurrentUserSession LoginYourAccount(User user) throws LoginException {
+		
 		if (user.getRole().equals("admin")) {
 			String uuid = UUID.randomUUID().toString();
 
@@ -39,32 +38,31 @@ public class LoginServiceImpl implements LoginService {
 			CurrentUserSession userSession = new CurrentUserSession(rand_int1, uuid, LocalDateTime.now(),
 					user.getUsername(), user.getPassword(), user.getRole());
 
-			sdao.save(userSession);
+			return sdao.save(userSession);
+			// sdao.save(userSession);
+			
 		}
 
 		// Check if the user exists or not
-		Customer exist = cdao.findByusername(user.getUsername());
+		Customer exist = cdao.findByUsername(user.getUsername());
 		if (exist == null) {
 			throw new LoginException("Please Enter a valid username");
 		}
 
-		Optional<CurrentUserSession> checkLogin = sdao.findById(exist.getUserId());
+		CurrentUserSession checkLogin = sdao.findByUsername(exist.getUsername());
 
-		if (checkLogin.isPresent()) {
+		if (checkLogin!= null ) {
 			throw new LoginException(" You already Login SS");
 		}
 
 		if (exist.getPassword().equals(user.getPassword())) {
-
+			
 			String key = UUID.randomUUID().toString();
-
-//					CurrentUserSession userSession = new CurrentUserSession(exist.getCustomerId(),key,LocalDateTime.now(),user.getEmail(),user.getPassword(),user.getRole());
-//					sessionD.save(userSession);
-
+			
 			CurrentUserSession userSession = new CurrentUserSession(exist.getUserId(), key, LocalDateTime.now(),
 					user.getUsername(), user.getPassword(), user.getRole());
 			sdao.save(userSession);
-			return userSession.toString();
+			return userSession;
 		} else {
 			throw new LoginException("Password doesn't match");
 		}
@@ -81,7 +79,6 @@ public class LoginServiceImpl implements LoginService {
 		}
 
 		sdao.delete(validUserSession);
-
 		return "Logged Out!";
 	}
 

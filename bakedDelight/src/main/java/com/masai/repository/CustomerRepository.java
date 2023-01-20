@@ -6,7 +6,7 @@ import com.masai.model.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer,Integer>{
 
-	public Customer findByusername(String username);
+	public Customer findByUsername(String username);
 	
 	
 	

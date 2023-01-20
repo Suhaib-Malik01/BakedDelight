@@ -1,17 +1,17 @@
 package com.masai.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.masai.exception.LoginException;
+import com.masai.model.CurrentUserSession;
 import com.masai.model.User;
 import com.masai.service.*;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 public class LoginController {
@@ -20,32 +20,31 @@ public class LoginController {
 	private LoginService culogin;
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> LoginUser( @RequestBody User user ) throws LoginException {
+	public ResponseEntity<CurrentUserSession> LoginUser( @RequestBody User user ) throws LoginException {
 		
-		if(user.getUsername().equals("admin@gmail.com") && user.getPassword().equalsIgnoreCase("admin")) {
-			
+		if(user.getUsername().equals("admin@gmail.com") && user.getPassword().equals("admin")) {
 			user.setRole("admin");
-			
-			String login = culogin.LoginYourAccount(user);
-			 return new ResponseEntity<String>(login,HttpStatus.OK);
-			
-		}else {
+			CurrentUserSession login = culogin.LoginYourAccount(user);
+			 return new ResponseEntity<CurrentUserSession>(login,HttpStatus.ACCEPTED);	
+		}
+		
+		else {
 			
 			user.setRole("customer");
 			
-			 String login = culogin.LoginYourAccount(user);
-			 return new ResponseEntity<String>(login,HttpStatus.OK);
-			
+			 CurrentUserSession login = culogin.LoginYourAccount(user);
+			 
+			 return new ResponseEntity<CurrentUserSession>(login,HttpStatus.ACCEPTED);	
 		}
-		
 	}
 	
 	@DeleteMapping("/logout/{k}")
-	public String logoutCustomer( @PathVariable("k") String key) throws LoginException{
-		return culogin.LogOutYourAccount(key);
+	public ResponseEntity<String> logoutCustomer( @PathVariable("k") String key) throws LoginException{
+		
+		String logout = culogin.LogOutYourAccount(key);
+		
+		return new ResponseEntity<>(logout, HttpStatus.ACCEPTED);
 		
 	}
-
-	
 
 }

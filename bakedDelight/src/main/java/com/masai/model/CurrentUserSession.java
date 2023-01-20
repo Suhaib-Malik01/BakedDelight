@@ -4,22 +4,27 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 public class CurrentUserSession extends User {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true)
+	private Integer userId;
+	private String uuid;
+	private LocalDateTime localDateTime;
+
 	public CurrentUserSession(Integer customerId, String key, LocalDateTime now, String username, String password,
 			String role) {
 		// TODO Auto-generated constructor stub
@@ -30,13 +35,4 @@ public class CurrentUserSession extends User {
 		this.setPassword(password);
 		this.setRole(role);
 	}
-	
-	@Id
-	@Column(unique = true)
-	private Integer userId;
-	private String uuid;
-	private LocalDateTime localDateTime;
-	
-	
-	
 }
