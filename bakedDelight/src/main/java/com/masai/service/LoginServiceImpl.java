@@ -26,16 +26,7 @@ public class LoginServiceImpl implements LoginService {
 	private SessionRepository sdao;
 
 	@Override
-<<<<<<< HEAD
 	public CurrentUserSession LoginYourAccount(User user) throws LoginException {
-=======
-	public CurrentUserSession LoginIntoAccount(LoginDTO dto) throws LoginException {
-		// Check if the user exists or not 
-		Customer exist = cdao.findByUsername(dto.getUsername());
-		if(exist == null) {
-			throw new LoginException("Please Enter a valid Username");
-		}
->>>>>>> 454c288985d26fa3a9cd77a423ab5f91e6d6cac2
 		
 		if (user.getRole().equals("admin")) {
 			String uuid = UUID.randomUUID().toString();

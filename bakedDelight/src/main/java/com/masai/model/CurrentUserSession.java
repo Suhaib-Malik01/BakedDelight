@@ -17,13 +17,9 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-<<<<<<< HEAD
 public class CurrentUserSession extends User {
-=======
-public class CurrentUserSession extends User{
->>>>>>> 454c288985d26fa3a9cd77a423ab5f91e6d6cac2
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true)
 	private Integer userId;
 	private String uuid;

@@ -66,9 +66,6 @@ public class customerController {
         List<Customer> customer = cService.getAllCustomer();
 
         return new ResponseEntity<>(customer, HttpStatus.OK);
-<<<<<<< HEAD
-=======
 
->>>>>>> 454c288985d26fa3a9cd77a423ab5f91e6d6cac2
     }
 }
