@@ -26,6 +26,7 @@ public class GlobalExceptionHandler {
 	}
 	
 
+
 	@ExceptionHandler(CustomerException.class)
 	public ResponseEntity<MyErrorDetails> myExceptionHandler(CustomerException e, WebRequest req) {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), e.getMessage(), req.getDescription(false));
