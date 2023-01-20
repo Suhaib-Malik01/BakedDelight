@@ -118,5 +118,13 @@ public class GlobalExceptionHandler {
 
 =======
 	
+<<<<<<< Updated upstream
 >>>>>>> 454c288985d26fa3a9cd77a423ab5f91e6d6cac2
+=======
+	@ExceptionHandler(CategoryException.class)
+	public ResponseEntity<MyErrorDetails> categoryExceptionHandler(CategoryException e, WebRequest req) {
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), e.getMessage(), req.getDescription(false));
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
+>>>>>>> Stashed changes
 }
