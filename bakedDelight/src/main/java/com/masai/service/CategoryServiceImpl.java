@@ -3,12 +3,14 @@ package com.masai.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.masai.exception.CategoryException;
 import com.masai.model.Category;
 import com.masai.model.Product;
 import com.masai.repository.CategoryRepository;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
