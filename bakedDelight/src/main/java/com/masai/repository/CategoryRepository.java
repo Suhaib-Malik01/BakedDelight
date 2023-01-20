@@ -6,4 +6,6 @@ import com.masai.model.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer>{
 
+	
+	 
 }

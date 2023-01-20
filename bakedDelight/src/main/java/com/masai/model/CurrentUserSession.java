@@ -15,7 +15,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CurrentUserSession {
+public class CurrentUserSession extends User{
 	@Id
 	private String uuid;
 	private Integer userId;

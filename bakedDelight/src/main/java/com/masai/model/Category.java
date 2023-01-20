@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +29,8 @@ public class Category {
 	
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
+	@JsonIgnore
+	@OneToMany(mappedBy = "category")
 	private List<Product> products = new ArrayList<>();
 
 }
