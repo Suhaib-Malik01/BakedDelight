@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +40,7 @@ public class Cart {
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "cart")
 	@JoinColumn(name = "CustomerID")
+	@JsonIgnore
 	private Customer customer;
 
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "cart")    // shohaib

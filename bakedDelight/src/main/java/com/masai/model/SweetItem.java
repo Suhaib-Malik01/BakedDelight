@@ -34,8 +34,5 @@ public class SweetItem {
 	private Cart cart;
 	
 	
-	
-	
-	
 
 }
