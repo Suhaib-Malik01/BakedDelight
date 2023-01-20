@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exception.CustomerException;
+import com.masai.model.Cart;
 import com.masai.model.Customer;
 import com.masai.repository.CustomerRepository;
 
@@ -18,6 +19,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public Customer addCustomer(Customer customer){
         
+        customer.setCart(new Cart());
 
         return cDao.save(customer);
     }
