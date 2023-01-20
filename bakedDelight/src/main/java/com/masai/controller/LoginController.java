@@ -38,8 +38,8 @@ public class LoginController {
 		}
 	}
 	
-	@DeleteMapping("/logout/{k}")
-	public ResponseEntity<String> logoutCustomer( @PathVariable("k") String key) throws LoginException{
+	@DeleteMapping("/logout/{key}")
+	public ResponseEntity<String> logoutCustomer( @PathVariable String key) throws LoginException{
 		
 		String logout = culogin.LogOutYourAccount(key);
 		

@@ -48,7 +48,7 @@ public class categoryController {
         return new ResponseEntity<Category>(deletedCategory, HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/category")
+    @GetMapping("/category/all")
     public ResponseEntity<List<Category>> getAllCategory() throws CategoryException{
 
         List<Category> customer = cService.getAllCategory();
@@ -57,7 +57,7 @@ public class categoryController {
 
     }
 
-    @GetMapping("/category")
+    @GetMapping("/category/total")
     public ResponseEntity<Double> getTotalCost() throws CategoryException{
 
         Double total = cService.getTotalCost();
