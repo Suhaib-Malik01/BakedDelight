@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.masai.model.*;
 
 @Repository
-public interface SessionRepository extends JpaRepository<CurrentUserSession, String> {
+public interface SessionRepository extends JpaRepository<CurrentUserSession, Integer> {
 	public CurrentUserSession findByUuid(String uuid);
 
 	public List<CurrentUserSession> findByUserId(Integer userId);
+	
+	public CurrentUserSession findByUsername(String username);
 }
