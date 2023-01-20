@@ -23,7 +23,9 @@ public class LoginController {
 	public ResponseEntity<CurrentUserSession> LoginUser( @RequestBody User user ) throws LoginException {
 		
 		if(user.getUsername().equals("admin@gmail.com") && user.getPassword().equals("admin")) {
+			
 			user.setRole("admin");
+			
 			CurrentUserSession login = culogin.LoginYourAccount(user);
 			 return new ResponseEntity<CurrentUserSession>(login,HttpStatus.ACCEPTED);	
 		}

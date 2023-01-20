@@ -47,6 +47,7 @@ public class LoginServiceImpl implements LoginService {
 		Customer exist = cdao.findByUsername(user.getUsername());
 		if (exist == null) {
 			throw new LoginException("Please Enter a valid username");
+			//"Your were not Register with us please register first..
 		}
 
 		CurrentUserSession checkLogin = sdao.findByUsername(exist.getUsername());

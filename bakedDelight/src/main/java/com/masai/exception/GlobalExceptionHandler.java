@@ -22,11 +22,7 @@ public class GlobalExceptionHandler {
 /*------------------------------------------Global SweetItemException-------------------------------------------------*/
 
 	
-	@ExceptionHandler(SweetItemException.class)
-	public ResponseEntity<MyErrorDetails> sweetItemExceptionHandler(SweetItemException soe, WebRequest req) {
-		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), soe.getMessage(), req.getDescription(false));
-		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
-	}
+	
 	
 	@ExceptionHandler(SweetOrderException.class)
 	public ResponseEntity<MyErrorDetails> mySweetOrderExceptionHandler(SweetOrderException soe, WebRequest req) {
