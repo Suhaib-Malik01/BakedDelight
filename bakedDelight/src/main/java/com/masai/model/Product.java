@@ -36,6 +36,8 @@ public class Product {
 	
 	private Boolean available;
 	
+	private Integer quantity;
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Category category;
 	
