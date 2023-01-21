@@ -19,6 +19,15 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
 	
+/*------------------------------------------Global SweetItemException-------------------------------------------------*/
+
+	
+	@ExceptionHandler(SweetItemException.class)
+	public ResponseEntity<MyErrorDetails> sweetItemExceptionHandler(SweetItemException soe, WebRequest req) {
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), soe.getMessage(), req.getDescription(false));
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(SweetOrderException.class)
 	public ResponseEntity<MyErrorDetails> mySweetOrderExceptionHandler(SweetOrderException soe, WebRequest req) {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), soe.getMessage(), req.getDescription(false));
@@ -31,22 +40,20 @@ public class GlobalExceptionHandler {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), e.getMessage(), req.getDescription(false));
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@ExceptionHandler(ProductException.class)
 	public ResponseEntity<MyErrorDetails> mynotFoundHandler(ProductException pe, WebRequest req) {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), pe.getMessage(), req.getDescription(false));
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
-	
-	
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<MyErrorDetails> myMANVExceptionHandler(MethodArgumentNotValidException me ,WebRequest req) {
-		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), me.getBindingResult().getFieldError().getDefaultMessage(), req.getDescription(false));
+	public ResponseEntity<MyErrorDetails> myMANVExceptionHandler(MethodArgumentNotValidException me, WebRequest req) {
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),
+				me.getBindingResult().getFieldError().getDefaultMessage(), req.getDescription(false));
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
-	
-	
+
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public ResponseEntity<MyErrorDetails> mynotFoundHandler(NoHandlerFoundException nfe, WebRequest req) {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), nfe.getMessage(), req.getDescription(false));
@@ -58,11 +65,23 @@ public class GlobalExceptionHandler {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), e.getMessage(), req.getDescription(false));
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<MyErrorDetails> myExceptionHandler(IllegalArgumentException e, WebRequest req) {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), e.getMessage(), req.getDescription(false));
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
-	
+
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<MyErrorDetails> myEhandler(LoginException e, WebRequest req) {
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), e.getMessage(), req.getDescription(false));
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+
+
+	@ExceptionHandler(CategoryException.class)
+	public ResponseEntity<MyErrorDetails> categoryExceptionHandler(CategoryException e, WebRequest req) {
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), e.getMessage(), req.getDescription(false));
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
 }

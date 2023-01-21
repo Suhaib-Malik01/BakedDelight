@@ -1,15 +1,23 @@
 package com.masai.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.persistence.MappedSuperclass;
 
-@Data
-@AllArgsConstructor
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@MappedSuperclass
+@Setter
+@Getter
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 	
-	private String Username;
-	private String Password;
-	private String Role; 
+	private String username;
+	private String password;
+	private String role;
+	
 }
