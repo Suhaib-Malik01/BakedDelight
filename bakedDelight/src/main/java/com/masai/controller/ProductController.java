@@ -64,7 +64,7 @@ public class ProductController {
 	
 	
 	@PutMapping("/update/{key}")
-	public ResponseEntity<Product> updateProductHandler( @RequestBody Product product,@PathVariable ("key")  String key) throws ProductException, CustomerException{
+	public ResponseEntity<Product> updateProductHandler( @RequestBody Product product,@PathVariable ("key")  String key) throws  ProductException, LoginException, CustomerException {
 		
 		Product updated = productService.updateProductService(product,key);
 		
@@ -81,7 +81,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/remove/{Id}/{key}")
-	public ResponseEntity<Product> removeProductHandler(@PathVariable("Id") Integer Id,@PathVariable("key") String key) throws ProductException, CustomerException {
+	public ResponseEntity<Product> removeProductHandler(@PathVariable("Id") Integer Id,@PathVariable("key") String key) throws  ProductException, LoginException, CustomerException {
 		
 		Product product = productService.removeProductService(Id,key);
 		

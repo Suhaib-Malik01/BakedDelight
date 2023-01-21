@@ -10,6 +10,7 @@ import com.masai.exception.CustomerException;
 import com.masai.exception.LoginException;
 import com.masai.exception.ProductException;
 import com.masai.model.Category;
+import com.masai.model.CurrentUserSession;
 import com.masai.model.Product;
 import com.masai.repository.CategoryRepository;
 import com.masai.repository.CustomerRepository;
@@ -57,7 +58,19 @@ public class ProductServiceImpl implements ProductService {
 	public Product addProductService(Product product, String key)throws ProductException, LoginException, CustomerException {
 
 		//security check......
+		CurrentUserSession status =	sessionRepo.findByUuid(key);
 		
+        if(status==null) {
+			
+			throw new LoginException("Customer not logged yet..plz login first");
+			
+		}
+		
+		if(status.getRole().equalsIgnoreCase("customer")) {
+			
+			throw new CustomerException("You are not authorized to add products");
+			
+		}
 		
 		
 		
@@ -79,10 +92,23 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product updateProductService(Product product, String key) throws ProductException, CustomerException {
-		
+	public Product updateProductService(Product product, String key) throws ProductException, CustomerException, LoginException {
 		
 		//security check......
+				CurrentUserSession status =	sessionRepo.findByUuid(key);
+				
+		        if(status==null) {
+					
+					throw new LoginException("Customer not logged yet..plz login first");
+					
+				}
+				
+				if(status.getRole().equalsIgnoreCase("customer")) {
+					
+					throw new CustomerException("You are not authorized to update products");
+					
+				}
+		   
 		
 		Optional<Product> pro = productRepo.findById(product.getProductID());
 
@@ -128,9 +154,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product removeProductService(Integer id, String key) throws ProductException, CustomerException {
+	public Product removeProductService(Integer id, String key) throws ProductException, CustomerException, LoginException {
 		
-		//Security check.....
+		//security check......
+		CurrentUserSession status =	sessionRepo.findByUuid(key);
+		
+        if(status==null) {
+			
+			throw new LoginException("Customer not logged yet..plz login first");
+			
+		}
+		
+		if(status.getRole().equalsIgnoreCase("customer")) {
+			
+			throw new CustomerException("You are not authorized to remove products");
+			
+		}
 		                       
                 Optional<Product> opt = productRepo.findById(id);
                 

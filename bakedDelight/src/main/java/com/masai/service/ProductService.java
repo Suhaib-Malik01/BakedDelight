@@ -16,10 +16,10 @@ public interface ProductService {
 	
 	public Product addProductService(Product product,String key) throws ProductException, LoginException, CustomerException;
 	
-	public Product updateProductService(Product product,String key) throws ProductException, CustomerException ;
+	public Product updateProductService(Product product,String key) throws ProductException, LoginException, CustomerException ;
 	
 	public List<Product> viewProductByCategoryService(String Category_name) throws ProductException;
 	
-	public Product removeProductService(Integer id,String key) throws ProductException, CustomerException;
+	public Product removeProductService(Integer id,String key) throws ProductException, LoginException, CustomerException ;
 	
 }

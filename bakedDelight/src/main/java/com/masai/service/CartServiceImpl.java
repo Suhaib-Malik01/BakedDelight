@@ -24,10 +24,11 @@ public class CartServiceImpl implements CartService {
 	public Product addProductIntoCart(Integer id, String Key) throws ProductException {
 		
 		   String kString=currentUserSession.getUuid();
-		   
+		   Optional<Product> productOpt;
 		   if(kString.equals(Key)) {
 			   
-			Optional<Product> productOpt=   productRepository.findById(id);
+			 productOpt=   productRepository.findById(id);
+			
 			
 			
 		   }
@@ -35,7 +36,7 @@ public class CartServiceImpl implements CartService {
 		
 		              
 		
-		
+		   return null;
 		
 		
 	}
