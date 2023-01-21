@@ -2,7 +2,7 @@ package com.masai.controller;
 
 import java.util.List;
 
-
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,7 +52,7 @@ public class ProductController {
 	
 	
 	@PostMapping("/add/{key}")
-	public ResponseEntity<Product> addProductHandler(@RequestBody Product product,@PathVariable("key")  String key) throws ProductException, LoginException, CustomerException {
+	public ResponseEntity<Product> addProductHandler(@Valid @RequestBody Product product,@PathVariable("key")  String key) throws ProductException, LoginException, CustomerException {
 		
 		
 		
@@ -64,7 +64,7 @@ public class ProductController {
 	
 	
 	@PutMapping("/update/{key}")
-	public ResponseEntity<Product> updateProductHandler( @RequestBody Product product,@PathVariable ("key")  String key) throws  ProductException, LoginException, CustomerException {
+	public ResponseEntity<Product> updateProductHandler(@Valid @RequestBody Product product,@PathVariable ("key")  String key) throws  ProductException, LoginException, CustomerException {
 		
 		Product updated = productService.updateProductService(product,key);
 		
@@ -81,7 +81,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/remove/{Id}/{key}")
-	public ResponseEntity<Product> removeProductHandler(@PathVariable("Id") Integer Id,@PathVariable("key") String key) throws  ProductException, LoginException, CustomerException {
+	public ResponseEntity<Product> removeProductHandler(@Valid @PathVariable("Id") Integer Id,@PathVariable("key") String key) throws  ProductException, LoginException, CustomerException {
 		
 		Product product = productService.removeProductService(Id,key);
 		
