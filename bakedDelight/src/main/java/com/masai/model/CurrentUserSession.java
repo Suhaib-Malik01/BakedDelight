@@ -18,14 +18,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CurrentUserSession extends User {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(unique = true)
 	private Integer userId;
 	private String uuid;
 	private LocalDateTime localDateTime;
 
-	public CurrentUserSession(Integer customerId, String key, LocalDateTime now, String username, String password,
+	public CurrentUserSession(Integer customerId,String key, LocalDateTime now, String username, String password,
 			String role) {
 		// TODO Auto-generated constructor stub
 		this.userId = customerId;

@@ -33,9 +33,9 @@ public class LoginServiceImpl implements LoginService {
 
 			Random rand = new Random();
 
-			int rand_int1 = rand.nextInt(100);
 
-			CurrentUserSession userSession = new CurrentUserSession(rand_int1, uuid, LocalDateTime.now(),
+
+			CurrentUserSession userSession = new CurrentUserSession(rand.nextInt(551,1000),uuid, LocalDateTime.now(),
 					user.getUsername(), user.getPassword(), user.getRole());
 
 			return sdao.save(userSession);
@@ -46,24 +46,24 @@ public class LoginServiceImpl implements LoginService {
 		// Check if the user exists or not
 		Customer exist = cdao.findByUsername(user.getUsername());
 		if (exist == null) {
-			throw new LoginException("Please Enter a valid username");
-			//"Your were not Register with us please register first..
+			throw new LoginException("Your were not Register with us please register first..");
+			//"
 		}
 
 		CurrentUserSession checkLogin = sdao.findByUsername(exist.getUsername());
 
 		if (checkLogin!= null ) {
-			throw new LoginException(" You already Login SS");
+			throw new LoginException("You already Login SS");
 		}
 
 		if (exist.getPassword().equals(user.getPassword())) {
 			
 			String key = UUID.randomUUID().toString();
 			
-			CurrentUserSession userSession = new CurrentUserSession(exist.getUserId(), key, LocalDateTime.now(),
-					user.getUsername(), user.getPassword(), user.getRole());
-			sdao.save(userSession);
-			return userSession;
+			CurrentUserSession userSession = new CurrentUserSession(exist.getUserId(),key, LocalDateTime.now(),
+					exist.getUsername(), exist.getPassword(), user.getRole());
+
+			return sdao.save(userSession);
 		} else {
 			throw new LoginException("Password doesn't match");
 		}

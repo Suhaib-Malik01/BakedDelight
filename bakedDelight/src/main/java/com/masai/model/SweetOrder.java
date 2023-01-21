@@ -36,8 +36,6 @@ public class SweetOrder {
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "order")
 	private OrderBill orderBill;
 	
-	
-
 	@OneToOne
 	private Cart cart;
 

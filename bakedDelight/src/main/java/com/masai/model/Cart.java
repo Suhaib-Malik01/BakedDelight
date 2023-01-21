@@ -3,6 +3,7 @@ package com.masai.model;
 import java.util.*;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.masai.Dto.ProductDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,12 +48,7 @@ public class Cart {
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "cart")    // shohaib
 	private SweetOrder sweetOrder;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
-	private List<SweetItem> products=new ArrayList<>();
-	
-	
-	
-	
-	
-	
+	@ElementCollection
+	@JsonIgnore
+	private Map<Product, Integer> productList = new HashMap<>();
 }
