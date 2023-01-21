@@ -1,4 +1,4 @@
-package com.masai.service;
+ package com.masai.service;
 
 import java.util.List;
 
@@ -21,16 +21,17 @@ public class SweetOrderServiceImpl implements SweetOrderService{
 		
 		return soRepo.save(sweetOrder);
 	}
-
+	
 	@Override
 	public SweetOrder updateSweetOrder(SweetOrder sweetOrder) throws SweetOrderException {
-//		--------------------------------
-		return null;
+		SweetOrder sweetOrder1= soRepo.findById(sweetOrder.getSweetOrderId()).orElseThrow(()-> new SweetOrderException("Sweet Order does not exist with Id "+sweetOrder.getSweetOrderId()));
+		
+		return soRepo.save(sweetOrder);
 	}
 
 	@Override
 	public SweetOrder cancelSweetOrder(Integer sweetOrderId) throws SweetOrderException {
-		SweetOrder sweetOrder= soRepo.findById(sweetOrderId).orElseThrow(new SweetOrderException("Sweet Order does not exist with Id "+sweetOrderId));
+		SweetOrder sweetOrder= soRepo.findById(sweetOrderId).orElseThrow(()-> new SweetOrderException("Sweet Order does not exist with Id "+sweetOrderId));
 		soRepo.delete(sweetOrder);
 		return sweetOrder;
 	}
@@ -44,13 +45,11 @@ public class SweetOrderServiceImpl implements SweetOrderService{
 
 	@Override
 	public Double calculateTotalCost(Integer sweetOrderId) throws SweetOrderException {
-		SweetOrder sweetOrder= soRepo.findById(sweetOrderId).orElseThrow(new SweetOrderException("Sweet Order does not exist with Id "+sweetOrderId));
-		
-//		--------------------------------
+		SweetOrder sweetOrder= soRepo.findById(sweetOrderId).orElseThrow(()-> new SweetOrderException("Sweet Order does not exist with Id "+sweetOrderId));
 		
 		
 		
-		return null;
+		return sweetOrder.getOrderBill().getTotalCost();
 	}
 
 	

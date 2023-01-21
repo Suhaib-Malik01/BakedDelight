@@ -16,5 +16,5 @@ public interface OrderBillService {
 	
 	public List<OrderBill> showAllOrderBills() throws OrderBillException;
 	
-	public List<OrderBill> showAllOrderBills(Integer OrderBillId) throws OrderBillException;
+	public OrderBill showOrderBills(Integer OrderBillId) throws OrderBillException;
 }

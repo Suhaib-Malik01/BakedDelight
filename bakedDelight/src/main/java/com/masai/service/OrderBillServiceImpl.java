@@ -1,6 +1,8 @@
 package com.masai.service;
 
+
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +26,18 @@ public class OrderBillServiceImpl implements OrderBillService{
 
 	@Override
 	public OrderBill updateOrderBill(OrderBill orderBill) throws OrderBillException {
-//		--------------------------------
-		return null;
+		Optional<OrderBill> otp = odRepo.findById(orderBill.getOrderBillId());
+		if(otp.isPresent()) {
+			
+			return odRepo.save(orderBill);
+		}
+		throw new OrderBillException("Order bill does not exist with the order id "+orderBill.getOrderBillId()); 
+		
 	}
-
+	
 	@Override
 	public OrderBill cancelOrderBill(Integer OrderBillId) throws OrderBillException {
-		OrderBill orderBill= odRepo.findById(OrderBillId).orElseThrow(new OrderBillException("Order bill does not exist with this id "+OrderBillId));
+		OrderBill orderBill= odRepo.findById(OrderBillId).orElseThrow(()-> new OrderBillException("Order bill does not exist with this id "+OrderBillId));
 		odRepo.delete(orderBill);
 		return orderBill;
 	}
@@ -39,14 +46,13 @@ public class OrderBillServiceImpl implements OrderBillService{
 	public List<OrderBill> showAllOrderBills() throws OrderBillException {
 		List<OrderBill>  list = odRepo.findAll();
 		if(list.size()==0) throw new OrderBillException("Order bill details not available.");
-		
 		return list;
 	}
 
 	@Override
-	public List<OrderBill> showAllOrderBills(Integer OrderBillId) throws OrderBillException {
-		List<OrderBill> list = odRepo.findAllById(OrderBillId);
-		if(list.size()==0) throw new OrderBillException("Order bill details does not exist with id "+OrderBillId);
-		return list;
+	public OrderBill showOrderBills(Integer OrderBillId) throws OrderBillException {
+		return odRepo.findById(OrderBillId).orElseThrow(()-> new OrderBillException("Order bill does not exist with the id "+ OrderBillId));
 	}
+
+	
 }
