@@ -4,15 +4,18 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.masai.exception.CustomerException;
+import com.masai.exception.LoginException;
+import com.masai.exception.OrderBillException;
 import com.masai.exception.SweetOrderException;
 import com.masai.model.SweetOrder;
 
 public interface SweetOrderService {
-	public SweetOrder addSweetOrder(SweetOrder sweetOrder) throws SweetOrderException;
+	public SweetOrder addSweetOrder(SweetOrder sweetOrder, String key) throws SweetOrderException, LoginException, OrderBillException, CustomerException;
 	
-	public SweetOrder updateSweetOrder(SweetOrder sweetOrder) throws SweetOrderException;
+	public SweetOrder updateSweetOrder(SweetOrder sweetOrder, String key) throws SweetOrderException, LoginException, OrderBillException, CustomerException;
 	
-	public SweetOrder cancelSweetOrder(Integer sweetOrderId) throws SweetOrderException;
+	public SweetOrder cancelSweetOrder(Integer sweetOrderId, String key) throws SweetOrderException, LoginException, OrderBillException, CustomerException;
 	
 	public List<SweetOrder> showAllSweetOrder() throws SweetOrderException;
 	

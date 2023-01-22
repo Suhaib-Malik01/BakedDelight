@@ -1,5 +1,6 @@
 package com.masai.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -30,6 +31,7 @@ public class OrderBillController {
 	
 	@PostMapping("/orderbills")
 	public ResponseEntity<OrderBill> addOrderBillHandler(@Valid @RequestBody OrderBill orderBill) throws OrderBillException{
+		
 		return new ResponseEntity<OrderBill>(orderBillService.addOrderBill(orderBill), HttpStatus.CREATED);
 	}
 	
@@ -40,12 +42,12 @@ public class OrderBillController {
 	
 	@DeleteMapping("/orderbills/{id}")
 	public ResponseEntity<OrderBill> deleteOrderBillHandler(@PathVariable("id") Integer id) throws OrderBillException{
-		return new ResponseEntity<OrderBill>(orderBillService.cancelOrderBill(id), HttpStatus.ACCEPTED);
+		return new ResponseEntity<OrderBill>(orderBillService.cancelOrderBill(id), HttpStatus.OK);
 	}
 	
 	@GetMapping("/orderbills")
 	public ResponseEntity<List<OrderBill>> showAllOrderBillHandler() throws OrderBillException{
-		return new ResponseEntity<List<OrderBill>>(orderBillService.showAllOrderBills(), HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<OrderBill>>(orderBillService.showAllOrderBills(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/orderbills/{id}")

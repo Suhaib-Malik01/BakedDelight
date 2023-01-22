@@ -39,7 +39,7 @@ public class SweetOrder {
 	@OneToOne
 	private Cart cart;
 
-	
+	private Double totalCost;
 
 
 	
