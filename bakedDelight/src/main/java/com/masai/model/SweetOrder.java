@@ -1,6 +1,7 @@
 package com.masai.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,10 +35,25 @@ public class SweetOrder {
 	private LocalDate date;
 
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "order")
+	@JsonIgnore
 	private OrderBill orderBill;
 	
 	@OneToOne
 	private Cart cart;
+	
+	private Double totalCost;
+	
+//	@Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//   
+//    private Integer orderId;
+//    private LocalDateTime orderDate;
+//
+//
+//    @OneToOne(cascade = CascadeType.ALL)
+////    @JoinColumn(name = "cart_cart_id")
+//    private Cart cart;
+//    private String orderStatus;
 
 	
 

@@ -45,7 +45,8 @@ public class Cart {
 	@JsonIgnore
 	private Customer customer;
 
-	@OneToOne(cascade = CascadeType.ALL,mappedBy = "cart")    // shohaib
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "cart")    
+	@JsonIgnore
 	private SweetOrder sweetOrder;
 	
 	@ElementCollection

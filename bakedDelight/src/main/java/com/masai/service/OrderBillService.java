@@ -8,13 +8,13 @@ import com.masai.exception.OrderBillException;
 import com.masai.model.OrderBill;
 
 public interface OrderBillService {
-	public OrderBill addOrderBill(OrderBill orderBill) throws OrderBillException;
+	public OrderBill addOrderBill(Integer sweetOrderId) throws OrderBillException;
 	
-	public OrderBill updateOrderBill(OrderBill orderBill) throws OrderBillException;
+//	public OrderBill updateOrderBill(OrderBill orderBill) throws OrderBillException;
 	
-	public OrderBill cancelOrderBill(Integer OrderBillId) throws OrderBillException;
+//	public OrderBill cancelOrderBill(Integer OrderBillId) throws OrderBillException;
 	
-	public List<OrderBill> showAllOrderBills() throws OrderBillException;
+//	public List<OrderBill> showAllOrderBills() throws OrderBillException;
 	
 	public OrderBill showOrderBills(Integer OrderBillId) throws OrderBillException;
 }
