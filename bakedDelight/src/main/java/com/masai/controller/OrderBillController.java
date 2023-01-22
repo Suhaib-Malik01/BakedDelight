@@ -28,28 +28,15 @@ public class OrderBillController {
 	@Autowired
 	private OrderBillService orderBillService;
 	
-	@PostMapping("/orderbills")
-	public ResponseEntity<OrderBill> addOrderBillHandler(@Valid @RequestBody OrderBill orderBill) throws OrderBillException{
-		return new ResponseEntity<OrderBill>(orderBillService.addOrderBill(orderBill), HttpStatus.CREATED);
+	@PostMapping("/orderbills/{sweetorderId}")
+	public ResponseEntity<OrderBill> addOrderBillHandler(@Valid @PathVariable("sweetorderId")Integer sweetorderId) throws OrderBillException{
+		return new ResponseEntity<OrderBill>(orderBillService.addOrderBill(sweetorderId), HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/orderbills")
-	public ResponseEntity<OrderBill> updateOrderBillHandler(@Valid @RequestBody OrderBill orderBill) throws OrderBillException{
-		return new ResponseEntity<OrderBill>(orderBillService.updateOrderBill(orderBill), HttpStatus.ACCEPTED);
-	}
 	
-	@DeleteMapping("/orderbills/{id}")
-	public ResponseEntity<OrderBill> deleteOrderBillHandler(@PathVariable("id") Integer id) throws OrderBillException{
-		return new ResponseEntity<OrderBill>(orderBillService.cancelOrderBill(id), HttpStatus.ACCEPTED);
-	}
 	
-	@GetMapping("/orderbills")
-	public ResponseEntity<List<OrderBill>> showAllOrderBillHandler() throws OrderBillException{
-		return new ResponseEntity<List<OrderBill>>(orderBillService.showAllOrderBills(), HttpStatus.ACCEPTED);
-	}
-	
-	@GetMapping("/orderbills/{id}")
-	public ResponseEntity<OrderBill> showOrderBillHandler(@PathVariable("id") Integer id) throws OrderBillException{
+	@GetMapping("/orderbills/{OrderBillId}")
+	public ResponseEntity<OrderBill> showOrderBillHandler(@PathVariable("OrderBillId") Integer id) throws OrderBillException{
 		return new ResponseEntity<OrderBill>(orderBillService.showOrderBills(id), HttpStatus.ACCEPTED);
 	}
 	

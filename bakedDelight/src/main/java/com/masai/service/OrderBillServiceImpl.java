@@ -1,6 +1,7 @@
 package com.masai.service;
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.masai.exception.OrderBillException;
 import com.masai.model.OrderBill;
+import com.masai.model.SweetOrder;
 import com.masai.repository.OrderBillRepository;
+import com.masai.repository.SweetOrderRepository;
 
 @Service
 public class OrderBillServiceImpl implements OrderBillService{
@@ -18,41 +21,40 @@ public class OrderBillServiceImpl implements OrderBillService{
 	@Autowired
 	private OrderBillRepository odRepo;
 	
-	@Override
-	public OrderBill addOrderBill(OrderBill orderBill) throws OrderBillException {
-		return odRepo.save(orderBill);
-		
-	}
-
-	@Override
-	public OrderBill updateOrderBill(OrderBill orderBill) throws OrderBillException {
-		Optional<OrderBill> otp = odRepo.findById(orderBill.getOrderBillId());
-		if(otp.isPresent()) {
-			
-			return odRepo.save(orderBill);
-		}
-		throw new OrderBillException("Order bill does not exist with the order id "+orderBill.getOrderBillId()); 
-		
-	}
+	@Autowired
+	private SweetOrderRepository sweetOrderrepo;
+	
+	
+	
+	
+	
+	
 	
 	@Override
-	public OrderBill cancelOrderBill(Integer OrderBillId) throws OrderBillException {
-		OrderBill orderBill= odRepo.findById(OrderBillId).orElseThrow(()-> new OrderBillException("Order bill does not exist with this id "+OrderBillId));
-		odRepo.delete(orderBill);
-		return orderBill;
+	public OrderBill addOrderBill(Integer sweetOrderId) throws OrderBillException {
+		Optional<SweetOrder>  opt =  sweetOrderrepo.findById(sweetOrderId);
+		if(opt.isEmpty())throw new OrderBillException("Please check sweetOrderId: "+sweetOrderId);
+		SweetOrder order =	opt.get();
+		
+		OrderBill bill = new OrderBill();
+		bill.setCreatedDate(LocalDate.now());
+		bill.setOrder(order);
+		bill.setTotalCost(order.getTotalCost());
+		
+		
+		return odRepo.save(bill) ;
 	}
 
-	@Override
-	public List<OrderBill> showAllOrderBills() throws OrderBillException {
-		List<OrderBill>  list = odRepo.findAll();
-		if(list.size()==0) throw new OrderBillException("Order bill details not available.");
-		return list;
-	}
+
 
 	@Override
 	public OrderBill showOrderBills(Integer OrderBillId) throws OrderBillException {
 		return odRepo.findById(OrderBillId).orElseThrow(()-> new OrderBillException("Order bill does not exist with the id "+ OrderBillId));
 	}
 
+
+
+
+	
 	
 }
