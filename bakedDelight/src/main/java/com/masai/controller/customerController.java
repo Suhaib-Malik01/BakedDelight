@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exception.CustomerException;
+import com.masai.exception.LoginException;
 import com.masai.model.Customer;
 import com.masai.service.CustomerService;
 
@@ -42,28 +43,28 @@ public class customerController {
 
     }
 
-    @DeleteMapping("/customer/{id}")
-    public ResponseEntity<Customer> deleteCustomer(@PathVariable Integer id) throws CustomerException{
+    @DeleteMapping("/customer/{id}/{key}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable Integer id,@PathVariable String key) throws CustomerException, LoginException{
 
-        Customer customer = cService.deleteCustomer(id);
+        Customer customer = cService.deleteCustomer(id,key);
 
         return new ResponseEntity<Customer>(customer, HttpStatus.ACCEPTED);
 
     }
 
-    @GetMapping("/customer/{id}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable Integer id) throws CustomerException{
+    @GetMapping("/customer/{id}/{key}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable Integer id,@PathVariable String key) throws CustomerException, LoginException{
 
-        Customer customer = cService.getCustomer(id);
+        Customer customer = cService.getCustomer(id,key);
 
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
 
     }
 
-    @GetMapping("/customer")
-    public ResponseEntity<List<Customer>> getAllCustomer() throws CustomerException{
+    @GetMapping("/customer/{key}")
+    public ResponseEntity<List<Customer>> getAllCustomer(@PathVariable String key) throws CustomerException, LoginException{
 
-        List<Customer> customer = cService.getAllCustomer();
+        List<Customer> customer = cService.getAllCustomer(key);
 
         return new ResponseEntity<>(customer, HttpStatus.OK);
 
