@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.masai.Dto.ProductDto;
 import com.masai.exception.OrderBillException;
 import com.masai.model.OrderBill;
 import com.masai.service.OrderBillService;
@@ -36,8 +37,8 @@ public class OrderBillController {
 	
 	
 	@GetMapping("/orderbills/{OrderBillId}")
-	public ResponseEntity<OrderBill> showOrderBillHandler(@PathVariable("OrderBillId") Integer id) throws OrderBillException{
-		return new ResponseEntity<OrderBill>(orderBillService.showOrderBills(id), HttpStatus.ACCEPTED);
+	public ResponseEntity<List<ProductDto>> showOrderBillHandler(@PathVariable("OrderBillId") Integer id) throws OrderBillException{
+		return new ResponseEntity<>(orderBillService.showOrderBills(id), HttpStatus.ACCEPTED);
 	}
 	
 }

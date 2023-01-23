@@ -64,13 +64,7 @@ public class SweetOrderServiceImpl implements SweetOrderService{
 			sweetOrder.setCart(custCart);
 			sweetOrder.setDate(LocalDate.now());
 			
-			sweetOrder.setTotalCost(sweetOrder.getCart().getCartTotal());
-			
-			custCart.setProductList(new HashMap<>());
-			
-//			CartServiceImpl carserv = new CartServiceImpl();
-//			carserv.updatedCart(custCart);
-			
+			sweetOrder.setTotalCost(sweetOrder.getCart().getCartTotal());			
 			
 			cartrepo.save(custCart);
 			customerRepo.save(customer);

@@ -37,8 +37,8 @@ public class OrderBill {
 	@OneToOne(cascade = CascadeType.ALL)
 	private SweetOrder order;
 	
-//	@ElementCollection
-//	private List<Product> listSweetOrder = new ArrayList<>();
+	// @ElementCollection
+	// private List<Product> listSweetOrder = new ArrayList<>();
 
 	
 	

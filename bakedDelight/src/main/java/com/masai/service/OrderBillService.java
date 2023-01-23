@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.masai.Dto.ProductDto;
 import com.masai.exception.OrderBillException;
 import com.masai.model.OrderBill;
 
@@ -16,5 +17,5 @@ public interface OrderBillService {
 	
 //	public List<OrderBill> showAllOrderBills() throws OrderBillException;
 	
-	public OrderBill showOrderBills(Integer OrderBillId) throws OrderBillException;
+	public List<ProductDto> showOrderBills(Integer OrderBillId) throws OrderBillException;
 }

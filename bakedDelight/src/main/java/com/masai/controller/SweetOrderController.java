@@ -38,27 +38,27 @@ public class SweetOrderController {
 		return new ResponseEntity<>(order,HttpStatus.ACCEPTED) ;
 	}
 	
-	@PutMapping("/updateorder/{sweetorderId}/{Key}")
-	public ResponseEntity<SweetOrder> updateSweetOrderHandler(@Valid @PathVariable("sweetorderId")Integer Id,@PathVariable String key ) throws SweetOrderException, LoginException, OrderBillException, CustomerException{
+	// @PutMapping("/updateorder/{sweetorderId}/{Key}")
+	// public ResponseEntity<SweetOrder> updateSweetOrderHandler(@Valid @PathVariable("sweetorderId")Integer Id,@PathVariable String key ) throws SweetOrderException, LoginException, OrderBillException, CustomerException{
 		
-		return new ResponseEntity<SweetOrder>(sweetOrderService.updateSweetOrder(Id,key), HttpStatus.OK);
-	}
+	// 	return new ResponseEntity<SweetOrder>(sweetOrderService.updateSweetOrder(Id,key), HttpStatus.OK);
+	// }
 	
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<SweetOrder> cancelSweetOrderHandler(@PathVariable("id") Integer id) throws SweetOrderException, LoginException, OrderBillException, CustomerException{
+	// @DeleteMapping("/delete/{id}")
+	// public ResponseEntity<SweetOrder> cancelSweetOrderHandler(@PathVariable("id") Integer id) throws SweetOrderException, LoginException, OrderBillException, CustomerException{
 		
-		return new ResponseEntity<SweetOrder>(sweetOrderService.cancelSweetOrder(id), HttpStatus.ACCEPTED);
-	}
+	// 	return new ResponseEntity<SweetOrder>(sweetOrderService.cancelSweetOrder(id), HttpStatus.ACCEPTED);
+	// }
 	
-	@GetMapping("/showAll")
-	public ResponseEntity<List<SweetOrder>> showAllSweetOrderHandler() throws SweetOrderException{
+	// @GetMapping("/showAll")
+	// public ResponseEntity<List<SweetOrder>> showAllSweetOrderHandler() throws SweetOrderException{
 		
-		return new ResponseEntity<List<SweetOrder>>(sweetOrderService.showAllSweetOrder(), HttpStatus.OK);
-	}
+	// 	return new ResponseEntity<List<SweetOrder>>(sweetOrderService.showAllSweetOrder(), HttpStatus.OK);
+	// }
 	
-	@GetMapping("/total/{id}")
-	public ResponseEntity<Double> calculateTotalCostOfSweetOrderHandler(@PathVariable("id") Integer id) throws SweetOrderException{
+	// @GetMapping("/total/{id}")
+	// public ResponseEntity<Double> calculateTotalCostOfSweetOrderHandler(@PathVariable("id") Integer id) throws SweetOrderException{
 		
-		return new ResponseEntity<Double>(sweetOrderService.calculateTotalCost(id), HttpStatus.CREATED);
-	}
+	// 	return new ResponseEntity<Double>(sweetOrderService.calculateTotalCost(id), HttpStatus.CREATED);
+	// }
 }
