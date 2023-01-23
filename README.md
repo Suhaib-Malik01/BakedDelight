@@ -83,5 +83,7 @@ Administrator can **Add, Update, View, Delete** **Products**  from the **Databas
     - Add Order
     - Cancel Order
     - View Orders 
-    
-    
+   
+ - Entity Relationship Diagram
+   - 
+  ![ER](https://github.com/Suhaib-Malik01/expensive-butter-4614/blob/main/bakedDelight/ER.DAIGRAM.jpeg?raw=true)  
